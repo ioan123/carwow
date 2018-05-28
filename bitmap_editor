@@ -1,2 +1,7 @@
 #!/bin/sh
-python main.py
+if [ -z "$1" ];
+then
+    echo "Please specify input file name."
+    exit 1
+fi
+python main.py -i "$1"

@@ -2,11 +2,17 @@
 from parser import file_check
 from bitmap import Bitmap
 from commands import *
+import argparse
+import sys
+import os
 
 
-def main():
+def main(args):
     """Main function."""
-    commands = file_check("input.txt")
+    assert os.path.exists(args.input), "Could not locate the input file: " + str(args.input)
+
+    commands = file_check(args.input)
+
     bitmap = None
     while not commands.empty():
         for k, v in commands.get().items():
@@ -25,4 +31,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+
+    parser = argparse.ArgumentParser(description='Main function')
+    parser.add_argument('-i', '--input', help='Input file name', required=True)
+    args = parser.parse_args()
+    main(args)
